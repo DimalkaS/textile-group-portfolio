@@ -11,11 +11,16 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-blue': '#1D4ED8', // Rich Blue
-                        'secondary-gray': '#4B5563', // Dark Gray
+                        'primary-blue': '#1e40af', // Deeper, more sophisticated primary blue
+                        'secondary-gray': '#374151', // Richer text color
                         'background-light': '#F9FAFB',
-                        'accent-orange': '#F59E0B',
-                        'dark-bg': '#1f2937',
+                        'accent-orange': '#f59e0b',
+                        'dark-bg': '#111827', // Very dark background for contrast
+                    },
+                    boxShadow: {
+                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)', /* Added for dramatic hover */
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -32,8 +37,8 @@
         }
         /* Style for active navigation tab */
         .tab-active {
-            background-color: #F59E0B; /* Orange for active tab */
-            color: #1f2937; /* Dark text */
+            background-color: #f59e0b; /* Orange for active tab */
+            color: #111827; /* Dark text */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
         }
         .nav-tab-mobile {
@@ -41,7 +46,19 @@
         }
         .tab-active-mobile {
             background-color: #E5E7EB;
-            border-left-color: #1D4ED8;
+            border-left-color: #1e40af;
+        }
+        /* Smooth transition for card depth */
+        .member-card, .project-card {
+            transition: all 0.3s ease-in-out;
+        }
+        /* New styling for subtle division */
+        .portfolio-divider {
+            height: 3px;
+            background-color: #f59e0b;
+            width: 100px;
+            margin: 1rem 0;
+            border-radius: 9999px;
         }
     </style>
 </head>
@@ -96,7 +113,7 @@
 
         <!-- 1. HOMEPAGE / HERO SECTION -->
         <section id="team" class="content-section">
-            <div class="text-center bg-gradient-to-br from-primary-blue to-blue-800 p-8 sm:p-16 rounded-3xl shadow-2xl text-white mb-12">
+            <div class="text-center bg-gradient-to-br from-primary-blue to-blue-900 p-8 sm:p-16 rounded-3xl shadow-2xl text-white mb-12">
                 <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 animate-fade-in-down">Engineering Tomorrow's Textiles</h1>
                 <p class="text-xl sm:text-2xl font-light mb-8 max-w-3xl mx-auto opacity-90">
                     We are **Four Undergraduate Engineers** from UoM, dedicated to driving innovation in material science, apparel manufacturing, and sustainable textile technology.
@@ -113,19 +130,19 @@
 
             <!-- Statistics Dashboard -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center mt-12">
-                <div class="bg-white p-4 rounded-xl shadow-md border-b-4 border-primary-blue">
+                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-primary-blue hover:shadow-2xl transition duration-300">
                     <div class="text-4xl font-extrabold text-primary-blue">4</div>
                     <div class="text-sm font-semibold text-secondary-gray mt-1">Dedicated Members</div>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-md border-b-4 border-accent-orange">
+                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-accent-orange hover:shadow-2xl transition duration-300">
                     <div class="text-4xl font-extrabold text-accent-orange">10+</div>
                     <div class="text-sm font-semibold text-secondary-gray mt-1">Group Projects</div>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-md border-b-4 border-primary-blue">
+                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-primary-blue hover:shadow-2xl transition duration-300">
                     <div class="text-4xl font-extrabold text-primary-blue">30+</div>
                     <div class="text-sm font-semibold text-secondary-gray mt-1">Individual Portfolios</div>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-md border-b-4 border-accent-orange">
+                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-accent-orange hover:shadow-2xl transition duration-300">
                     <div class="text-4xl font-extrabold text-accent-orange">UoM T&A</div>
                     <div class="text-sm font-semibold text-secondary-gray mt-1">Affiliation</div>
                 </div>
@@ -136,14 +153,14 @@
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Team, In Focus</h2>
                 <!-- PATH FIXED: Now points to the root directory -->
                 <img src="./group_photo.jpg" 
-                     onerror="this.src='https://placehold.co/1200x400/1D4ED8/FFFFFF?text=Group+Photo+Placeholder'"
-                     class="w-full rounded-xl shadow-lg border-4 border-accent-orange object-cover h-64 mx-auto" 
+                     onerror="this.src='https://placehold.co/1200x400/1e40af/FFFFFF?text=Group+Photo+Placeholder'"
+                     class="w-full rounded-xl shadow-2xl border-4 border-accent-orange object-cover h-64 mx-auto" 
                      alt="Group Photo of Textile Engineering Undergraduates">
                 <p class="text-sm text-gray-500 mt-2">Ensure 'group_photo.jpg' is uploaded directly to the root of your repository (next to index.html).</p>
             </div>
             
-            <h2 class="text-3xl font-bold text-gray-800 mt-12 mb-6 border-b pb-2">Our Collective Vision</h2>
-            <p class="text-lg text-gray-600">
+            <h2 class="text-3xl font-bold text-gray-800 mt-12 mb-6 border-b-2 border-primary-blue pb-2">Our Collective Vision</h2>
+            <p class="text-lg text-secondary-gray">
                 The Department of Textile & Apparel Engineering at the University of Moratuwa has equipped us with a robust foundation in both the technical and managerial aspects of the industry. As a team, we combine expertise from fiber science to production systems, allowing us to approach complex challenges with a holistic, engineering mindset.
             </p>
         </section>
@@ -155,11 +172,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 <!-- Member 1 Card: Dimalka Hettiarachchi (241083D) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-accent-orange">
-                    <!-- PATH UPDATED TO USE GITHUB RAW URL (assuming DimalkaS/textile-group-portfolio) -->
-                    <img src="https://raw.githubusercontent.com/DimalkaS/textile-group-portfolio/main/dimalka.jpg" 
-                         onerror="this.src='https://placehold.co/100x100/F59E0B/FFFFFF?text=DH'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-accent-orange" 
+                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-accent-orange">
+                    <!-- PATH UPDATED TO RELATIVE PATH: src="./dimalka.jpg" -->
+                    <img src="./dimalka.jpg" 
+                         onerror="this.src='https://placehold.co/100x100/f59e0b/FFFFFF?text=DH'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-accent-orange object-cover" 
                          alt="Dimalka Hettiarachchi Profile">
                     <h2 class="text-2xl font-bold text-gray-800 text-center">Dimalka Hettiarachchi</h2>
                     <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241083D</p>
@@ -170,11 +187,11 @@
                 </div>
 
                 <!-- Member 2 Card: Tuan Pallie (241051E) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary-blue">
+                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-primary-blue">
                     <!-- PATH FIXED: Now points to the root directory -->
                     <img src="./tuan.jpg" 
-                         onerror="this.src='https://placehold.co/100x100/1D4ED8/FFFFFF?text=TP'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary-blue" 
+                         onerror="this.src='https://placehold.co/100x100/1e40af/FFFFFF?text=TP'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary-blue object-cover" 
                          alt="Tuan Pallie Profile">
                     <h2 class="text-2xl font-bold text-gray-800 text-center">Tuan Pallie</h2>
                     <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241051E</p>
@@ -185,11 +202,11 @@
                 </div>
 
                 <!-- Member 3 Card: Udula Bimsara (241041A) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-gray-600">
+                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-secondary-gray">
                     <!-- PATH FIXED: Now points to the root directory -->
                     <img src="./udula.jpg" 
-                         onerror="this.src='https://placehold.co/100x100/4B5563/FFFFFF?text=UB'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-600" 
+                         onerror="this.src='https://placehold.co/100x100/374151/FFFFFF?text=UB'" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-secondary-gray object-cover" 
                          alt="Udula Bimsara Profile">
                     <h2 class="text-2xl font-bold text-gray-800 text-center">Udula Bimsara</h2>
                     <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241041A</p>
@@ -200,11 +217,11 @@
                 </div>
 
                 <!-- Member 4 Card: Sulan Gunawardena (241085K) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-pink-500">
+                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-pink-500">
                     <!-- PATH FIXED: Now points to the root directory -->
                     <img src="./sulan.jpg" 
                          onerror="this.src='https://placehold.co/100x100/EC4899/FFFFFF?text=SG'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-pink-500" 
+                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-pink-500 object-cover" 
                          alt="Sulan Gunawardena Profile">
                     <h2 class="text-2xl font-bold text-gray-800 text-center">Sulan Gunawardena</h2>
                     <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241085K</p>
@@ -220,6 +237,7 @@
         <!-- 3. GROUP PROJECTS SECTION -->
         <section id="projects" class="content-section hidden">
             <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-10">Our Group Projects Showcase</h1>
+            <div class="portfolio-divider"></div>
             <p class="text-lg text-secondary-gray mb-8">
                 Highlighting our collaborative efforts across material innovation, process optimization, and digital apparel technology.
             </p>
@@ -227,68 +245,68 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <!-- Project 1: 3D Sampling Analysis -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-primary-blue">
+                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-semibold text-gray-500">Apparel CAD</span>
                         <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">3D Sampling Analysis for Knitwear</h2>
-                    <p class="text-gray-600 text-sm mb-3">Implemented CLO3D to reduce physical sampling cycles by 75% for complex knitwear designs, focusing on drape and tension mapping.</p>
+                    <p class="text-secondary-gray text-sm mb-3">Implemented CLO3D to reduce physical sampling cycles by 75% for complex knitwear designs, focusing on drape and tension mapping.</p>
                     <p class="text-xs text-gray-400">Timeline: Jan 2024 - Mar 2024</p>
                 </div>
                 
                 <!-- Project 2: Color Matching Study -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-accent-orange">
+                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-semibold text-gray-500">Wet Processing</span>
                         <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">Advanced Digital Color Matching Study</h2>
-                    <p class="text-gray-600 text-sm mb-3">Utilized spectrophotometry (Datacolor) to develop a standardized process for matching digital Pantone colors to natural dyes on cotton fabrics.</p>
+                    <p class="text-secondary-gray text-sm mb-3">Utilized spectrophotometry (Datacolor) to develop a standardized process for matching digital Pantone colors to natural dyes on cotton fabrics.</p>
                     <p class="text-xs text-gray-400">Timeline: Feb 2024 - Apr 2024</p>
                 </div>
 
                 <!-- Project 3: Fabric Testing -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-primary-blue">
+                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-semibold text-gray-500">Material Science</span>
                         <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">Durability Analysis of Recycled Fibers</h2>
-                    <p class="text-gray-600 text-sm mb-3">Conducted extensive UTM and burst strength tests on fabrics incorporating recycled polyester to quantify performance trade-offs.</p>
+                    <p class="text-secondary-gray text-sm mb-3">Conducted extensive UTM and burst strength tests on fabrics incorporating recycled polyester to quantify performance trade-offs.</p>
                     <p class="text-xs text-gray-400">Timeline: May 2024 - Jul 2024</p>
                 </div>
 
                 <!-- Project 4: Sustainable Fashion Initiative -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-accent-orange">
+                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-semibold text-gray-500">Sustainability</span>
                         <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">In Progress</span>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">Circular Economy Model for Apparel Waste</h2>
-                    <p class="text-gray-600 text-sm mb-3">Developing a campus-level framework for post-consumer textile waste collection and pre-processing for chemical recycling.</p>
+                    <p class="text-secondary-gray text-sm mb-3">Developing a campus-level framework for post-consumer textile waste collection and pre-processing for chemical recycling.</p>
                     <p class="text-xs text-gray-400">Timeline: Aug 2024 - Present</p>
                 </div>
                 
                 <!-- Project 5: Pattern Optimization -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-primary-blue">
+                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-semibold text-gray-500">Manufacturing</span>
                         <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Drafting</span>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">Nesting Efficiency Improvement Study</h2>
-                    <p class="text-gray-600 text-sm mb-3">A research project focusing on optimizing marker making in CAD systems to minimize fabric consumption for high-volume orders.</p>
+                    <p class="text-secondary-gray text-sm mb-3">A research project focusing on optimizing marker making in CAD systems to minimize fabric consumption for high-volume orders.</p>
                     <p class="text-xs text-gray-400">Timeline: Sep 2024 - Dec 2024</p>
                 </div>
                 
                 <!-- Project 6: Production Planning Simulation -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-accent-orange">
+                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-semibold text-gray-500">Industrial Engineering</span>
                         <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800 mb-2">Production Flow Simulation and Bottleneck Removal</h2>
-                    <p class="text-gray-600 text-sm mb-3">Modeled a typical T-shirt production line using simulation software to identify and mitigate process bottlenecks and reduce WIP inventory.</p>
+                    <p class="text-secondary-gray text-sm mb-3">Modeled a typical T-shirt production line using simulation software to identify and mitigate process bottlenecks and reduce WIP inventory.</p>
                     <p class="text-xs text-gray-400">Timeline: Mar 2024 - Jun 2024</p>
                 </div>
             </div>
@@ -297,6 +315,7 @@
         <!-- 4. INDIVIDUAL PORTFOLIOS SECTION -->
         <section id="portfolios" class="content-section hidden">
             <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Individual Portfolios</h1>
+            <div class="portfolio-divider"></div>
             <p class="text-lg text-secondary-gray mb-8">
                 Detailed breakdowns of individual contributions, personal academic achievements, and solo projects. Click a member's name below to switch the view.
             </p>
@@ -312,11 +331,12 @@
             <!-- Portfolio Content 1: Dimalka Hettiarachchi (Technical Textiles) -->
             <div id="portfolio-dh" class="portfolio-content bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
                 <h2 class="text-3xl font-bold text-accent-orange mb-4">Dimalka Hettiarachchi: Technical Textile R&D Portfolio (241083D)</h2>
-                <p class="text-gray-600 mb-6">
+                <div class="portfolio-divider"></div>
+                <p class="text-secondary-gray mb-6">
                     **Key Skills:** Polymer Science, Composite Layup, Universal Testing Machine (UTM) Operation, Finite Element Analysis (FEA) Simulation.
                 </p>
                 <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: Non-Woven Air Filtration Media</h3>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-secondary-gray">
                     Developed a prototype non-woven fabric from recycled PET fibers, achieving a 95% filtration efficiency for 2.5µm particles (PFE rating) in a controlled lab environment. This included optimizing the carding and needle-punching parameters.
                 </p>
                 <a href="https://www.linkedin.com/in/dimalka-hettiarachchi-31844435b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
@@ -325,11 +345,12 @@
             <!-- Portfolio Content 2: Tuan Pallie (Apparel Manufacturing) -->
             <div id="portfolio-tp" class="portfolio-content hidden bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
                 <h2 class="text-3xl font-bold text-primary-blue mb-4">Tuan Pallie: Apparel Manufacturing & QC Portfolio (241051E)</h2>
-                <p class="text-gray-600 mb-6">
+                <div class="portfolio-divider"></div>
+                <p class="text-secondary-gray mb-6">
                     **Key Skills:** Lean Manufacturing, Production Planning, Time and Motion Study (SMV Calculation), Quality Control (AQL), Value Stream Mapping.
                 </p>
                 <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: Line Balancing and Efficiency Improvement</h3>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-secondary-gray">
                     Conducted a detailed line balancing exercise for a jacket production cell, achieving a 15% improvement in line efficiency and a 10% reduction in operator idle time by optimizing the sequential task flow and skill matrix application.
                 </p>
                 <a href="https://www.linkedin.com/in/tuan-ehshan-pallie-1729a017b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
@@ -337,12 +358,13 @@
 
             <!-- Portfolio Content 3: Udula Bimsara (Chemistry) -->
             <div id="portfolio-ub" class="portfolio-content hidden bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
-                <h2 class="text-3xl font-bold text-gray-600 mb-4">Udula Bimsara: Textile Chemical Processing Portfolio (241041A)</h2>
-                <p class="text-gray-600 mb-6">
+                <h2 class="text-3xl font-bold text-secondary-gray mb-4">Udula Bimsara: Textile Chemical Processing Portfolio (241041A)</h2>
+                <div class="portfolio-divider"></div>
+                <p class="text-secondary-gray mb-6">
                     **Key Skills:** Spectrophotometry, Effluent Treatment, Color Matching (Datacolor), Enzyme Finishing, Advanced Printing Techniques.
                 </p>
                 <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: Natural Indigo Waste Valorization</h3>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-secondary-gray">
                     Researched and implemented a chemical process to recover and reuse indigo dye sludge from denim washing, reducing the overall toxic load of the effluent and creating a novel secondary pigment for fabric coating.
                 </p>
                 <a href="https://www.linkedin.com/in/udula-bimsara-95a484389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
@@ -351,11 +373,12 @@
             <!-- Portfolio Content 4: Sulan Gunawardena (CAD) -->
             <div id="portfolio-sg" class="portfolio-content hidden bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
                 <h2 class="text-3xl font-bold text-pink-500 mb-4">Sulan Gunawardena: Digital Pattern Making & Fit Portfolio (241085K)</h2>
-                <p class="text-gray-600 mb-6">
+                <div class="portfolio-divider"></div>
+                <p class="text-secondary-gray mb-6">
                     **Key Skills:** Accumark (Gerber), CLO3D, Digital Grading, Virtual Fit Analysis, Pattern Digitization and Reverse Engineering.
                 </p>
                 <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: 3D Virtual Fit for Activewear</h3>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-secondary-gray">
                     Created a customized 3D avatar based on anthropometric data and developed patterns for a complex activewear garment, testing and visualizing fit and tension mapping entirely in a 3D environment before physical sampling.
                 </p>
                 <a href="https://www.linkedin.com/in/sulan-gunawardena-485584389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
@@ -366,6 +389,7 @@
         <!-- 5. CONTACT SECTION -->
         <section id="contact" class="content-section hidden">
             <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Contact & Collaboration</h1>
+            <div class="portfolio-divider"></div>
             <p class="text-lg text-secondary-gray mb-10">
                 We are always open to connecting with industry professionals, researchers, and potential employers.
             </p>
@@ -388,7 +412,7 @@
                 <!-- Contact Card 3: LinkedIn (Group Link) -->
                 <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300">
                     <h3 class="text-xl font-bold text-primary-blue mb-2">LinkedIn (Group)</h3>
-                    <p class="text-700 text-sm">Connect with us professionally and view individual profiles.</p>
+                    <p class="text-gray-700 text-sm">Connect with us professionally and view individual profiles.</p>
                     <a href="https://www.linkedin.com/in/uom-ta-group" target="_blank" class="text-accent-orange font-medium break-words block mt-2 hover:underline">linkedin.com/in/uom-ta-group</a>
                 </div>
                 
