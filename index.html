@@ -3,523 +3,653 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textile & Apparel Engineers | Group Portfolio</title>
-    <!-- Load Tailwind CSS -->
+    <title>STUD Designs - Engineered for Presence</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '#1e40af', // Deeper, more sophisticated primary blue
-                        'secondary-gray': '#374151', // Richer text color
-                        'background-light': '#F9FAFB',
-                        'accent-orange': '#f59e0b',
-                        'dark-bg': '#111827', // Very dark background for contrast
-                    },
-                    boxShadow: {
-                        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)', /* Added for dramatic hover */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+    <!-- Importing Inter (body text) and Oswald (Men's heading) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <!-- Load Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        /* Custom styles for smooth transitions and responsiveness */
+        /* --- NEW COLOR PALETTE & UTILITIES --- */
+        :root {
+            --stud-primary: #00A896; /* Bold Teal/Cyan Accent */
+            --stud-dark: #2D3A42; /* Deep Charcoal Blue for text & dark sections */
+            --stud-light: #F5F5F5; /* Creamy White background */
+        }
+        
+        /* Base Styles: High-Contrast Magazine Vibe */
         body {
+            /* Default body font for high readability */
             font-family: 'Inter', sans-serif;
-            background-color: #F9FAFB;
+            background-color: var(--stud-light); 
+            color: var(--stud-dark); 
+            overflow-x: hidden;
+            min-height: 100vh;
         }
-        /* Style for active navigation tab */
-        .tab-active {
-            background-color: #f59e0b; /* Orange for active tab */
-            color: #111827; /* Dark text */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+
+        /* Font Override for Men's Section Headings */
+        #men-view h2, #men-view h3 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700; /* Use a bold weight for impact */
+            letter-spacing: 0.05em; /* Slight letter spacing for premium look */
         }
-        .nav-tab-mobile {
-            border-left: 4px solid transparent;
+
+        /* Dark Mode for Certain Sections */
+        .dark-section {
+            background-color: var(--stud-dark);
+            color: var(--stud-light); /* Light text on dark background for readability */
         }
-        .tab-active-mobile {
-            background-color: #E5E7EB;
-            border-left-color: #1e40af;
+        .dark-section h2, .dark-section h3, .stud-accent {
+            color: var(--stud-primary);
         }
-        /* Smooth transition for card depth */
-        .member-card, .project-card {
-            transition: all 0.3s ease-in-out;
+
+        /* --- STATIC PAGE VIEW / ROUTING (No Transitions) --- */
+        .page-view {
+            display: none; /* Hide by default */
+            width: 100%;
+            min-height: calc(100vh - 80px); 
+            top: 68px; 
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            position: relative; 
         }
-        /* New styling for subtle division */
-        .portfolio-divider {
-            height: 3px;
-            background-color: #f59e0b;
-            width: 100px;
-            margin: 1rem 0;
-            border-radius: 9999px;
+        .page-view.active {
+            display: block; /* Show instantly */
+        }
+
+        /* --- STATIC HOVER EFFECTS (No Transforms/Transitions) --- */
+        
+        /* Social Button Hover (Uses no transform/transition) */
+        .social-button {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .social-button:hover {
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Static shadow change for feedback */
+        }
+        
+        /* Primary button styling override */
+        .stud-btn-primary {
+            background-color: var(--stud-primary);
+            color: var(--stud-dark);
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stud-btn-primary:hover {
+            background-color: #008f80; /* Darker teal for hover */
+        }
+        
+        /* Secondary button styling override */
+        .stud-btn-secondary {
+            border: 2px solid var(--stud-primary);
+            color: var(--stud-primary);
+        }
+        .stud-btn-secondary:hover {
+            background-color: var(--stud-primary);
+            color: var(--stud-dark);
+        }
+
+        /* Color Swatch Interaction (No Transforms) */
+        .color-swatch {
+            cursor: pointer;
+        }
+        .color-swatch.selected {
+            box-shadow: 0 0 0 4px var(--stud-light), 0 0 0 6px var(--stud-primary); 
+        }
+        
+        /* Active Navigation Link Indicator */
+        .nav-link.active {
+            color: var(--stud-primary); 
+            font-weight: 700;
+            border-bottom: 2px solid var(--stud-primary);
+        }
+        
+        /* Logo Styling */
+        .stud-logo {
+            color: var(--stud-dark);
+        }
+        .stud-logo:hover {
+            color: var(--stud-primary);
+        }
+
+        /* Contact Card Styling (No Transforms/Transitions) */
+        .contact-card {
+            background-color: rgba(63, 81, 92, 0.2); 
+            backdrop-filter: blur(2px);
+            color: var(--stud-light);
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .contact-card:hover {
+            background-color: var(--stud-dark); 
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+        .contact-card .icon-container {
+            color: white;
+        }
+        .contact-card:hover .icon-container {
+            color: var(--stud-primary);
         }
     </style>
 </head>
+<body>
 
-<body class="min-h-screen">
-
-    <!-- Header and Navigation -->
-    <header class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="text-2xl font-extrabold text-primary-blue tracking-tight">
-                UniMorA T&A
-            </div>
-
-            <!-- Desktop Navigation Tabs -->
-            <nav class="hidden md:flex space-x-4">
-                <button onclick="showSection('team')" id="team-tab" class="nav-tab px-3 py-2 text-sm font-medium text-secondary-gray hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out tab-active">
-                    Homepage
-                </button>
-                <button onclick="showSection('members')" id="members-tab" class="nav-tab px-3 py-2 text-sm font-medium text-secondary-gray hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">
-                    Team Members
-                </button>
-                <button onclick="showSection('projects')" id="projects-tab" class="nav-tab px-3 py-2 text-sm font-medium text-secondary-gray hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">
-                    Group Projects
-                </button>
-                <button onclick="showSection('portfolios')" id="portfolios-tab" class="nav-tab px-3 py-2 text-sm font-medium text-secondary-gray hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">
-                    Portfolios
-                </button>
-                <button onclick="showSection('contact')" id="contact-tab" class="nav-tab px-3 py-2 text-sm font-medium text-secondary-gray hover:bg-primary-blue hover:text-white rounded-lg transition duration-150 ease-in-out">
-                    Contact
-                </button>
+    <!-- Header / Navigation (Sticky) -->
+    <header class="sticky top-0 z-50 bg-[--stud-light] bg-opacity-95 backdrop-blur-sm shadow-md border-b border-gray-200" style="height: 68px;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+            <a href="#" data-page="home" class="nav-link stud-logo text-3xl font-black tracking-widest uppercase flex items-center">
+                <!-- Inline SVG Logo: Minimalist Diamond/Presence Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 fill-[--stud-primary]" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                STUD Designs
+            </a>
+            <nav class="space-x-6 sm:space-x-8">
+                <a href="#" data-page="home" class="nav-link text-gray-700 hover:text-[--stud-dark] pb-4">Home</a>
+                <a href="#" data-page="men" class="nav-link text-gray-700 hover:text-[--stud-dark] pb-4">Men</a>
+                <a href="#" data-page="women" class="nav-link text-gray-700 hover:text-[--stud-dark] pb-4">Women</a>
+                <a href="#" data-page="size-guide" class="nav-link text-gray-700 hover:text-[--stud-dark] pb-4">Size Guide</a>
+                <a href="#" data-page="contact" class="nav-link text-gray-700 hover:text-[--stud-dark] pb-4">Contact</a>
             </nav>
-
-            <!-- Mobile Menu Button (Hamburger) -->
-            <button id="mobile-menu-button" class="md:hidden text-secondary-gray hover:text-primary-blue focus:outline-none" aria-label="Toggle menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
         </div>
-        
-        <!-- Mobile Menu Dropdown -->
-        <nav id="mobile-menu" class="hidden md:hidden bg-gray-50 border-t border-gray-200">
-            <div class="pt-2 pb-3 space-y-1">
-                <button onclick="showSection('team'); toggleMobileMenu()" id="team-tab-mobile" class="nav-tab-mobile w-full text-left block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 tab-active-mobile">Homepage</button>
-                <button onclick="showSection('members'); toggleMobileMenu()" id="members-tab-mobile" class="nav-tab-mobile w-full text-left block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Team Members</button>
-                <button onclick="showSection('projects'); toggleMobileMenu()" id="projects-tab-mobile" class="nav-tab-mobile w-full text-left block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Group Projects</button>
-                <button onclick="showSection('portfolios'); toggleMobileMenu()" id="portfolios-tab-mobile" class="nav-tab-mobile w-full text-left block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Portfolios</button>
-                <button onclick="showSection('contact'); toggleMobileMenu()" id="contact-tab-mobile" class="nav-tab-mobile w-full text-left block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Contact</button>
-            </div>
-        </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- MAIN CONTENT CONTAINER (Wrapper for all views) -->
+    <main id="main-content" class="relative">
 
-        <!-- 1. HOMEPAGE / HERO SECTION -->
-        <section id="team" class="content-section">
-            <div class="text-center bg-gradient-to-br from-primary-blue to-blue-900 p-8 sm:p-16 rounded-3xl shadow-2xl text-white mb-12">
-                <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 animate-fade-in-down">Engineering Tomorrow's Textiles</h1>
-                <p class="text-xl sm:text-2xl font-light mb-8 max-w-3xl mx-auto opacity-90">
-                    We are **Four Undergraduate Engineers** from UoM, dedicated to driving innovation in material science, apparel manufacturing, and sustainable textile technology.
-                </p>
-                <div class="space-y-4 sm:space-y-0 sm:space-x-6">
-                    <button onclick="showSection('projects')" class="bg-accent-orange text-dark-bg font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-yellow-500 transition duration-300 transform hover:scale-105">
-                        View Our Work
+        <!-- ===== 1. HOME VIEW: Brand & Store Details ===== -->
+        <section id="home-view" class="page-view active pt-0">
+            <!-- Hero: Brand Mission (Dark Section) -->
+            <div class="dark-section h-[85vh] flex flex-col items-center justify-center text-center overflow-hidden border-b border-gray-800">
+                <div class="px-4 max-w-5xl">
+                    <h1 class="text-6xl sm:text-7xl lg:text-9xl font-black uppercase leading-none mb-6">
+                        <span class="block stud-accent">Engineered</span>
+                        <span class="block text-white">for Presence.</span>
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-gray-400 mb-10 font-light">
+                        STUD Designs creates minimalist, high-impact apparel. We focus on one perfect fit and one perfect material. **Essentials redefined.**
+                    </p>
+                    <a href="#" data-page="men" class="nav-link inline-block px-10 py-4 text-lg uppercase tracking-wider rounded-lg shadow-xl social-button stud-btn-primary">
+                        View Collections
+                    </a>
+                </div>
+            </div>
+
+            <!-- Brand Details Section (Dark Section) -->
+            <div class="py-20 md:py-32 px-4 dark-section border-t border-gray-800">
+                <div class="max-w-7xl mx-auto">
+                    <span class="stud-accent font-semibold uppercase tracking-widest text-sm mb-2 block text-center">Our Philosophy</span>
+                    <h2 class="text-5xl md:text-6xl font-extrabold mb-12 text-center leading-tight text-white">
+                        The Core of STUD
+                    </h2>
+
+                    <div class="grid md:grid-cols-3 gap-10 text-center">
+                        <div>
+                            <i class="fas fa-hammer text-4xl stud-accent mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-3 stud-accent">Material Focus</h3>
+                            <p class="text-gray-400">We source only heavy-weight, combed cotton blends, ensuring durability and a premium, structured drape that lasts for years.</p>
+                        </div>
+                        <div >
+                            <i class="fas fa-ruler-combined text-4xl stud-accent mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-3 stud-accent">The Perfect Fit</h3>
+                            <p class="text-gray-400">Our design is centered around one modern oversized fit for men and one fluid, relaxed fit for women. Simplistic sizing, maximum style.</p>
+                        </div>
+                        <div >
+                            <i class="fas fa-recycle text-4xl stud-accent mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-3 stud-accent">Zero Waste</h3>
+                            <p class="text-gray-400">We produce limited runs and operate exclusively through direct contact, minimizing overstock and maintaining exclusivity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 2. MEN VIEW: ESSENTIAL TEE DETAILS (Light Section) ===== -->
+        <section id="men-view" class="page-view py-20 md:py-32 px-4">
+            <div class="max-w-7xl mx-auto">
+                <span class="stud-accent font-semibold uppercase tracking-widest text-sm mb-2 block">Men's Essential Tee</span>
+                <h2 class="text-5xl md:text-6xl font-extrabold mb-16 leading-tight">
+                    The Essential Tee
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    
+                    <!-- Feature Text Column -->
+                    <div class="md:sticky md:top-28">
+                        <div>
+                            <h3 class="text-4xl font-extrabold mb-6">
+                                The Engineered <span class="stud-accent">Drape</span>.
+                            </h3>
+                            <!-- FONT COLOR AND TEXT IMPROVED FOR CRISPNESS -->
+                            <p class="text-gray-800 text-lg mb-8">
+                                The Essential Tee is the foundation of the STUD brand. It utilizes a **280 GSM combed cotton** for a structured, oversized fit. This garment is built not just to be worn, but to command presence. The minimal logo is embroidered, reflecting a focus on subtle, lasting quality.
+                            </p>
+                            
+                            <!-- Color Selector (Interactive Element for Men) -->
+                            <div class="mb-8">
+                                <p class="text-[--stud-dark] font-semibold mb-3">Color: <span id="men-selected-color-name" class="font-normal stud-accent">Black</span></p>
+                                <div class="flex space-x-4" id="men-color-swatches-container">
+                                    <div class="color-swatch w-10 h-10 bg-black rounded-full selected" data-color="Black" data-hex="2D3A42" data-img-modifier="BLACK"></div>
+                                    <div class="color-swatch w-10 h-10 bg-white rounded-full" data-color="White" data-hex="F5F5F5" data-img-modifier="WHITE"></div>
+                                    <div class="color-swatch w-10 h-10 bg-gray-700 rounded-full" data-color="Navy" data-hex="1A2C39" data-img-modifier="NAVY"></div>
+                                </div>
+                            </div>
+                            <!-- End Color Selector -->
+
+                            <!-- FONT COLOR IMPROVED FOR CRISPNESS -->
+                            <ul class="space-y-3 text-gray-800 text-base mb-12">
+                                <li><i class="fas fa-tshirt stud-accent mr-2"></i> Heavyweight 280 GSM Cotton</li>
+                                <li><i class="fas fa-cut stud-accent mr-2"></i> Custom Oversized Drop-Shoulder Fit</li>
+                                <li><i class="fas fa-tag stud-accent mr-2"></i> Minimal Embroidered Logo Detail</li>
+                            </ul>
+
+                            <a href="#" data-page="size-guide" class="nav-link stud-accent font-semibold hover:text-[--stud-dark]">
+                                View Size Measurements <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- CTA Block -->
+                        <div class="mt-10">
+                             <a href="#" data-page="contact" class="nav-link inline-block px-10 py-4 text-lg uppercase tracking-wider rounded-lg shadow-xl social-button stud-btn-primary">
+                                Enquire Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Image Gallery Column -->
+                    <div class="space-y-12">
+                        <!-- Image 1: Side Profile -->
+                        <div>
+                            <img id="men-img-1" class="image-gallery-item w-full h-auto rounded-xl shadow-xl border border-gray-300"
+                                 src="https://placehold.co/800x1000/2D3A42/ffffff?text=ESSENTIAL+TEE+MEN+BLACK+FIT"
+                                 alt="Side profile fit of the STUD Designs Essential t-shirt in Black">
+                        </div>
+                        
+                        <!-- Image 2: Close-up Detail -->
+                        <div>
+                            <img id="men-img-2" class="image-gallery-item w-full h-auto rounded-xl shadow-xl border border-gray-300"
+                                 src="https://placehold.co/800x800/2D3A42/ffffff?text=ESSENTIAL+TEE+MEN+BLACK+DETAIL"
+                                 alt="Close-up of the minimal logo embroidery on Black tee">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 3. WOMEN VIEW: SIGNATURE CREW DETAILS (Dark Section) ===== -->
+        <section id="women-view" class="page-view py-20 md:py-32 px-4 dark-section">
+            <div class="max-w-7xl mx-auto">
+                <span class="stud-accent font-semibold uppercase tracking-widest text-sm mb-2 block">Women's Signature Crew</span>
+                <h2 class="text-5xl md:text-6xl font-extrabold mb-16 leading-tight">
+                    The Signature Crew
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    
+                    <!-- Feature Text Column -->
+                    <div class="md:sticky md:top-28">
+                        <div>
+                            <h3 class="text-4xl font-extrabold mb-6">
+                                Fluidity in <span class="stud-accent">Motion</span>.
+                            </h3>
+                            <!-- USING TEXT-GRAY-100 FOR OPTIMAL CONTRAST -->
+                            <p class="text-gray-100 text-lg mb-8">
+                                The Signature Crew is the female counterpart to the Essential Tee, crafted from a lighter, draped **200 GSM cotton jersey** engineered for a relaxed, flowing fit. It features a refined scoop neck and a subtle cropped length, designed for effortless layering and movement.
+                            </p>
+                            
+                            <!-- Color Selector (Interactive Element for Women) -->
+                            <div class="mb-8">
+                                <p class="text-white font-semibold mb-3">Color: <span id="women-selected-color-name" class="font-normal stud-accent">Black</span></p>
+                                <div class="flex space-x-4" id="women-color-swatches-container">
+                                    <div class="color-swatch w-10 h-10 bg-black rounded-full selected" data-color="Black" data-hex="000000" data-img-modifier="BLACK"></div>
+                                    <div class="color-swatch w-10 h-10 bg-white rounded-full" data-color="White" data-hex="ffffff" data-img-modifier="WHITE"></div>
+                                    <div class="color-swatch w-10 h-10 bg-gray-500 rounded-full" data-color="Heather Grey" data-hex="808080" data-img-modifier="GREY"></div>
+                                </div>
+                            </div>
+                            <!-- End Color Selector -->
+
+                            <!-- USING TEXT-GRAY-100 FOR OPTIMAL CONTRAST -->
+                            <ul class="space-y-3 text-gray-100 text-base mb-12">
+                                <li><i class="fas fa-tshirt stud-accent mr-2"></i> Lightweight 200 GSM Cotton Jersey</li>
+                                <li><i class="fas fa-cut stud-accent mr-2"></i> Relaxed, Drapey Fit</li>
+                                <li><i class="fas fa-tag stud-accent mr-2"></i> Subtle Cropped Length</li>
+                            </ul>
+
+                            <a href="#" data-page="size-guide" class="nav-link stud-accent font-semibold hover:text-white">
+                                View Size Measurements <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- CTA Block -->
+                        <div class="mt-10">
+                            <a href="#" data-page="contact" class="nav-link inline-block px-10 py-4 text-lg uppercase tracking-wider rounded-lg shadow-xl social-button stud-btn-primary">
+                                Enquire Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Image Gallery Column -->
+                    <div class="space-y-12">
+                        <!-- The IDs are crucial for the color swap JS -->
+                        <div>
+                            <img id="women-img-1" class="image-gallery-item w-full h-auto rounded-xl shadow-xl border border-gray-700"
+                                 src="https://placehold.co/800x1000/000000/F5F5F5?text=SIGNATURE+CREW+WOMEN+BLACK+FIT"
+                                 alt="Side profile fit of the black Signature Crew">
+                        </div>
+                        
+                        <div>
+                            <img id="women-img-2" class="image-gallery-item w-full h-auto rounded-xl shadow-xl border border-gray-700"
+                                 src="https://placehold.co/800x800/000000/F5F5F5?text=SIGNATURE+CREW+WOMEN+BLACK+TEXTURE"
+                                 alt="Close-up of the black Signature Crew fabric texture">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 4. SIZE GUIDE VIEW: Interactive Measurements Table (Light Section) ===== -->
+        <section id="size-guide-view" class="page-view py-20 md:py-32 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="stud-accent font-semibold uppercase tracking-widest text-sm mb-2 block">Measurements</span>
+                <h2 class="text-5xl md:text-6xl font-extrabold mb-12 leading-tight">
+                    Find Your <span class="stud-accent">Perfect Fit</span>
+                </h2>
+                
+                <!-- Gender Toggle -->
+                <div class="flex justify-center space-x-4 mb-8">
+                    <button id="toggle-men" class="px-6 py-3 rounded-lg text-lg font-semibold stud-btn-primary">
+                        Men's Sizing
                     </button>
-                    <button onclick="showSection('contact')" class="bg-white text-primary-blue font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-gray-200 transition duration-300 transform hover:scale-105">
-                        Collaborate With Us
+                    <button id="toggle-women" class="px-6 py-3 rounded-lg text-lg font-semibold bg-gray-300 text-black hover:bg-gray-400">
+                        Women's Sizing
                     </button>
                 </div>
-            </div>
 
-            <!-- Statistics Dashboard -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center mt-12">
-                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-primary-blue hover:shadow-2xl transition duration-300">
-                    <div class="text-4xl font-extrabold text-primary-blue">4</div>
-                    <div class="text-sm font-semibold text-secondary-gray mt-1">Dedicated Members</div>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-accent-orange hover:shadow-2xl transition duration-300">
-                    <div class="text-4xl font-extrabold text-accent-orange">10+</div>
-                    <div class="text-sm font-semibold text-secondary-gray mt-1">Group Projects</div>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-primary-blue hover:shadow-2xl transition duration-300">
-                    <div class="text-4xl font-extrabold text-primary-blue">30+</div>
-                    <div class="text-sm font-semibold text-secondary-gray mt-1">Individual Portfolios</div>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow-xl border-b-4 border-accent-orange hover:shadow-2xl transition duration-300">
-                    <div class="text-4xl font-extrabold text-accent-orange">UoM T&A</div>
-                    <div class="text-sm font-semibold text-secondary-gray mt-1">Affiliation</div>
-                </div>
-            </div>
-
-            <!-- Group Photo Section: PATH CORRECTED TO ROOT -->
-            <div class="mt-12 text-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Team, In Focus</h2>
-                <!-- PATH FIXED: Now points to the root directory -->
-                <img src="./group_photo.jpg" 
-                     onerror="this.src='https://placehold.co/1200x400/1e40af/FFFFFF?text=Group+Photo+Placeholder'"
-                     class="w-full rounded-xl shadow-2xl border-4 border-accent-orange object-cover h-64 mx-auto" 
-                     alt="Group Photo of Textile Engineering Undergraduates">
-                <p class="text-sm text-gray-500 mt-2">Ensure 'group_photo.jpg' is uploaded directly to the root of your repository (next to index.html).</p>
-            </div>
-            
-            <h2 class="text-3xl font-bold text-gray-800 mt-12 mb-6 border-b-2 border-primary-blue pb-2">Our Collective Vision</h2>
-            <p class="text-lg text-secondary-gray">
-                The Department of Textile & Apparel Engineering at the University of Moratuwa has equipped us with a robust foundation in both the technical and managerial aspects of the industry. As a team, we combine expertise from fiber science to production systems, allowing us to approach complex challenges with a holistic, engineering mindset.
-            </p>
-        </section>
-
-        <!-- 2. INDIVIDUAL PROFILES SECTION -->
-        <section id="members" class="content-section hidden">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-10">Our Team Members</h1>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                
-                <!-- Member 1 Card: Dimalka Hettiarachchi (241083D) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-accent-orange">
-                    <!-- PATH UPDATED TO RELATIVE PATH: src="./dimalka.jpg" -->
-                    <img src="https://raw.githubusercontent.com/DimalkaS/textile-group-portfolio/main/dimalka.jpg" alt="Dimalka" />
-                    <h2 class="text-2xl font-bold text-gray-800 text-center">Dimalka Hettiarachchi</h2>
-                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241083D</p>
-                    <p class="text-primary-blue text-center font-semibold mb-3">Technical Textiles & R&D</p>
-                    <p class="text-gray-600 text-center text-sm">Focus on high-performance fabric development, material testing, and research in functional composites.</p>
-                    <a href="https://www.linkedin.com/in/dimalka-hettiarachchi-31844435b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
-                    <a href="#" onclick="showSection('portfolios'); highlightPortfolio('dh')" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
-                </div>
-
-                <!-- Member 2 Card: Tuan Pallie (241051E) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-primary-blue">
-                    <!-- PATH FIXED: Now points to the root directory -->
-                    <img src="./tuan.jpg" 
-                         onerror="this.src='https://placehold.co/100x100/1e40af/FFFFFF?text=TP'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary-blue object-cover" 
-                         alt="Tuan Pallie Profile">
-                    <h2 class="text-2xl font-bold text-gray-800 text-center">Tuan Pallie</h2>
-                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241051E</p>
-                    <p class="text-primary-blue text-center font-semibold mb-3">Apparel Manufacturing & QC</p>
-                    <p class="text-gray-600 text-center text-sm">Specializes in lean production systems, optimizing sewing lines, and developing efficient factory layouts and SOPs.</p>
-                    <a href="https://www.linkedin.com/in/tuan-ehshan-pallie-1729a017b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
-                    <a href="#" onclick="showSection('portfolios'); highlightPortfolio('tp')" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
-                </div>
-
-                <!-- Member 3 Card: Udula Bimsara (241041A) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-secondary-gray">
-                    <!-- PATH FIXED: Now points to the root directory -->
-                    <img src="./udula.jpg" 
-                         onerror="this.src='https://placehold.co/100x100/374151/FFFFFF?text=UB'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-secondary-gray object-cover" 
-                         alt="Udula Bimsara Profile">
-                    <h2 class="text-2xl font-bold text-gray-800 text-center">Udula Bimsara</h2>
-                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241041A</p>
-                    <p class="text-primary-blue text-center font-semibold mb-3">Textile Chemistry & Dyeing</p>
-                    <p class="text-gray-600 text-center text-sm">Skilled in sustainable dyeing techniques, color fastness analysis, and eco-friendly chemical process engineering.</p>
-                    <a href="https://www.linkedin.com/in/udula-bimsara-95a484389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
-                    <a href="#" onclick="showSection('portfolios'); highlightPortfolio('ub')" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
-                </div>
-
-                <!-- Member 4 Card: Sulan Gunawardena (241085K) -->
-                <div class="member-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-pink-500">
-                    <!-- PATH FIXED: Now points to the root directory -->
-                    <img src="./sulan.jpg" 
-                         onerror="this.src='https://placehold.co/100x100/EC4899/FFFFFF?text=SG'" 
-                         class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-pink-500 object-cover" 
-                         alt="Sulan Gunawardena Profile">
-                    <h2 class="text-2xl font-bold text-gray-800 text-center">Sulan Gunawardena</h2>
-                    <p class="text-primary-blue text-center font-semibold mb-2 text-sm">Index: 241085K</p>
-                    <p class="text-primary-blue text-center font-semibold mb-3">CAD, Pattern Making & Fit</p>
-                    <p class="text-gray-600 text-center text-sm">Proficient in Gerber/OptiTex, 3D body scanning, and advanced garment fit analysis for complex designs.</p>
-                    <a href="https://www.linkedin.com/in/sulan-gunawardena-485584389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View LinkedIn »</a>
-                    <a href="#" onclick="showSection('portfolios'); highlightPortfolio('sg')" class="block mt-1 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">View Portfolio »</a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 3. GROUP PROJECTS SECTION -->
-        <section id="projects" class="content-section hidden">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-10">Our Group Projects Showcase</h1>
-            <div class="portfolio-divider"></div>
-            <p class="text-lg text-secondary-gray mb-8">
-                Highlighting our collaborative efforts across material innovation, process optimization, and digital apparel technology.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Project 1: 3D Sampling Analysis -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-gray-500">Apparel CAD</span>
-                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2">3D Sampling Analysis for Knitwear</h2>
-                    <p class="text-secondary-gray text-sm mb-3">Implemented CLO3D to reduce physical sampling cycles by 75% for complex knitwear designs, focusing on drape and tension mapping.</p>
-                    <p class="text-xs text-gray-400">Timeline: Jan 2024 - Mar 2024</p>
+                <!-- Size Table -->
+                <div id="size-table-container" class="overflow-x-auto shadow-2xl rounded-xl border border-gray-200">
+                    <!-- Table will be dynamically populated by JS -->
                 </div>
                 
-                <!-- Project 2: Color Matching Study -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-gray-500">Wet Processing</span>
-                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2">Advanced Digital Color Matching Study</h2>
-                    <p class="text-secondary-gray text-sm mb-3">Utilized spectrophotometry (Datacolor) to develop a standardized process for matching digital Pantone colors to natural dyes on cotton fabrics.</p>
-                    <p class="text-xs text-gray-400">Timeline: Feb 2024 - Apr 2024</p>
-                </div>
-
-                <!-- Project 3: Fabric Testing -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-gray-500">Material Science</span>
-                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2">Durability Analysis of Recycled Fibers</h2>
-                    <p class="text-secondary-gray text-sm mb-3">Conducted extensive UTM and burst strength tests on fabrics incorporating recycled polyester to quantify performance trade-offs.</p>
-                    <p class="text-xs text-gray-400">Timeline: May 2024 - Jul 2024</p>
-                </div>
-
-                <!-- Project 4: Sustainable Fashion Initiative -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-gray-500">Sustainability</span>
-                        <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-full">In Progress</span>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2">Circular Economy Model for Apparel Waste</h2>
-                    <p class="text-secondary-gray text-sm mb-3">Developing a campus-level framework for post-consumer textile waste collection and pre-processing for chemical recycling.</p>
-                    <p class="text-xs text-gray-400">Timeline: Aug 2024 - Present</p>
-                </div>
-                
-                <!-- Project 5: Pattern Optimization -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-primary-blue">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-gray-500">Manufacturing</span>
-                        <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Drafting</span>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2">Nesting Efficiency Improvement Study</h2>
-                    <p class="text-secondary-gray text-sm mb-3">A research project focusing on optimizing marker making in CAD systems to minimize fabric consumption for high-volume orders.</p>
-                    <p class="text-xs text-gray-400">Timeline: Sep 2024 - Dec 2024</p>
-                </div>
-                
-                <!-- Project 6: Production Planning Simulation -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border-l-4 border-accent-orange">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-semibold text-gray-500">Industrial Engineering</span>
-                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">Completed</span>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2">Production Flow Simulation and Bottleneck Removal</h2>
-                    <p class="text-secondary-gray text-sm mb-3">Modeled a typical T-shirt production line using simulation software to identify and mitigate process bottlenecks and reduce WIP inventory.</p>
-                    <p class="text-xs text-gray-400">Timeline: Mar 2024 - Jun 2024</p>
+                <p class="text-gray-600 text-sm mt-8">
+                    *All measurements are in inches. For the best fit, compare these to a garment you already own.
+                </p>
+                <div class="mt-12">
+                     <a href="#" data-page="contact" class="nav-link inline-block px-10 py-4 text-lg uppercase tracking-wider rounded-lg shadow-xl social-button stud-btn-primary">
+                        Need Help With Sizing?
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- 4. INDIVIDUAL PORTFOLIOS SECTION -->
-        <section id="portfolios" class="content-section hidden">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Individual Portfolios</h1>
-            <div class="portfolio-divider"></div>
-            <p class="text-lg text-secondary-gray mb-8">
-                Detailed breakdowns of individual contributions, personal academic achievements, and solo projects. Click a member's name below to switch the view.
-            </p>
 
-            <div class="flex flex-wrap gap-4 mb-8">
-                <!-- Portfolio Buttons (Updated IDs and Names) -->
-                <button onclick="showPortfolio('dh')" id="btn-dh" class="portfolio-btn px-4 py-2 bg-primary-blue text-white rounded-lg shadow-md hover:bg-primary-blue/80 transition duration-150">Dimalka Hettiarachchi</button>
-                <button onclick="showPortfolio('tp')" id="btn-tp" class="portfolio-btn px-4 py-2 bg-white text-secondary-gray rounded-lg shadow-md hover:bg-gray-100 transition duration-150">Tuan Pallie</button>
-                <button onclick="showPortfolio('ub')" id="btn-ub" class="portfolio-btn px-4 py-2 bg-white text-secondary-gray rounded-lg shadow-md hover:bg-gray-100 transition duration-150">Udula Bimsara</button>
-                <button onclick="showPortfolio('sg')" id="btn-sg" class="portfolio-btn px-4 py-2 bg-white text-secondary-gray rounded-lg shadow-md hover:bg-gray-100 transition duration-150">Sulan Gunawardena</button>
+        <!-- ===== 5. CONTACT VIEW: Social Links (Dark Section) ===== -->
+        <section id="contact-view" class="page-view py-20 md:py-32 px-4 dark-section border-t border-b border-gray-800">
+            <div class="max-w-7xl mx-auto text-center">
+                
+                <h2 class="text-5xl md:text-6xl font-extrabold mb-4 text-white">
+                    Connect With Us Directly
+                </h2>
+                <p class="text-gray-300 text-xl mb-12">
+                    Our team is ready to assist you with sizing, stock availability, and placing your exclusive order. Choose your preferred channel below.
+                </p>
+
+                <!-- Interactive Contact Cards Grid (FIXED: All cards now use the same size settings and are centered) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto">
+                    
+                    <!-- Card 1: WhatsApp -->
+                    <a href="https://wa.me/1234567890" target="_blank" class="contact-card p-6 rounded-xl border border-gray-700 shadow-xl bg-green-700/50 hover:bg-green-700">
+                        <div class="icon-container text-5xl text-white mb-4">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-1 stud-accent">WhatsApp Order Line</h3>
+                        <p class="text-gray-300">Fastest Response: **+1 234 567 890**</p>
+                    </a>
+                    
+                    <!-- Card 2: Instagram -->
+                    <a href="https://instagram.com/studdesigns_official" target="_blank" class="contact-card p-6 rounded-xl border border-gray-700 shadow-xl bg-pink-700/50 hover:bg-pink-700">
+                        <div class="icon-container text-5xl text-white mb-4">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-1 stud-accent">Instagram DM</h3>
+                        <p class="text-gray-300">Message our official account: **@STUDDesigns_Official**</p>
+                    </a>
+
+                    <!-- Card 3: Facebook -->
+                    <a href="https://facebook.com/studdesigns" target="_blank" class="contact-card p-6 rounded-xl border border-gray-700 shadow-xl bg-blue-700/50 hover:bg-blue-700">
+                        <div class="icon-container text-5xl text-white mb-4">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-1 stud-accent">Facebook Page</h3>
+                        <p class="text-gray-300">Follow for updates & chat support.</p>
+                    </a>
+
+                    <!-- Card 4: Mail (Now perfectly aligned) -->
+                    <a href="mailto:contact@studdesigns.com" class="contact-card p-6 rounded-xl border border-gray-700 shadow-xl bg-gray-600/50 hover:bg-gray-600">
+                        <div class="icon-container text-5xl text-white mb-4">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-1 stud-accent">Mail Address</h3>
+                        <p class="text-gray-300">For business inquiries: **contact@studdesigns.com**</p>
+                    </a>
+
+                    <!-- Card 5: LinkedIn (Now perfectly aligned) -->
+                    <a href="https://linkedin.com/company/studdesigns" target="_blank" class="contact-card p-6 rounded-xl border border-gray-700 shadow-xl bg-blue-900/50 hover:bg-blue-900">
+                        <div class="icon-container text-5xl text-white mb-4">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-1 stud-accent">LinkedIn</h3>
+                        <p class="text-gray-300">For brand partnerships & careers.</p>
+                    </a>
+                </div>
+
+                <!-- Secondary/Direct Info -->
+                <div class="mt-16 text-gray-400">
+                    <h3 class="text-3xl font-bold mb-4 text-white stud-accent">Corporate Office</h3>
+                    <p class="text-lg">STUD Designs Co., Ltd.</p>
+                    <p class="text-lg">555 Fashion Avenue, Suite 101, Global City.</p>
+                </div>
+                
             </div>
-
-            <!-- Portfolio Content 1: Dimalka Hettiarachchi (Technical Textiles) -->
-            <div id="portfolio-dh" class="portfolio-content bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
-                <h2 class="text-3xl font-bold text-accent-orange mb-4">Dimalka Hettiarachchi: Technical Textile R&D Portfolio (241083D)</h2>
-                <div class="portfolio-divider"></div>
-                <p class="text-secondary-gray mb-6">
-                    **Key Skills:** Polymer Science, Composite Layup, Universal Testing Machine (UTM) Operation, Finite Element Analysis (FEA) Simulation.
-                </p>
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: Non-Woven Air Filtration Media</h3>
-                <p class="text-sm text-secondary-gray">
-                    Developed a prototype non-woven fabric from recycled PET fibers, achieving a 95% filtration efficiency for 2.5µm particles (PFE rating) in a controlled lab environment. This included optimizing the carding and needle-punching parameters.
-                </p>
-                <a href="https://www.linkedin.com/in/dimalka-hettiarachchi-31844435b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
-            </div>
-
-            <!-- Portfolio Content 2: Tuan Pallie (Apparel Manufacturing) -->
-            <div id="portfolio-tp" class="portfolio-content hidden bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
-                <h2 class="text-3xl font-bold text-primary-blue mb-4">Tuan Pallie: Apparel Manufacturing & QC Portfolio (241051E)</h2>
-                <div class="portfolio-divider"></div>
-                <p class="text-secondary-gray mb-6">
-                    **Key Skills:** Lean Manufacturing, Production Planning, Time and Motion Study (SMV Calculation), Quality Control (AQL), Value Stream Mapping.
-                </p>
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: Line Balancing and Efficiency Improvement</h3>
-                <p class="text-sm text-secondary-gray">
-                    Conducted a detailed line balancing exercise for a jacket production cell, achieving a 15% improvement in line efficiency and a 10% reduction in operator idle time by optimizing the sequential task flow and skill matrix application.
-                </p>
-                <a href="https://www.linkedin.com/in/tuan-ehshan-pallie-1729a017b/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
-            </div>
-
-            <!-- Portfolio Content 3: Udula Bimsara (Chemistry) -->
-            <div id="portfolio-ub" class="portfolio-content hidden bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
-                <h2 class="text-3xl font-bold text-secondary-gray mb-4">Udula Bimsara: Textile Chemical Processing Portfolio (241041A)</h2>
-                <div class="portfolio-divider"></div>
-                <p class="text-secondary-gray mb-6">
-                    **Key Skills:** Spectrophotometry, Effluent Treatment, Color Matching (Datacolor), Enzyme Finishing, Advanced Printing Techniques.
-                </p>
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: Natural Indigo Waste Valorization</h3>
-                <p class="text-sm text-secondary-gray">
-                    Researched and implemented a chemical process to recover and reuse indigo dye sludge from denim washing, reducing the overall toxic load of the effluent and creating a novel secondary pigment for fabric coating.
-                </p>
-                <a href="https://www.linkedin.com/in/udula-bimsara-95a484389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
-            </div>
-
-            <!-- Portfolio Content 4: Sulan Gunawardena (CAD) -->
-            <div id="portfolio-sg" class="portfolio-content hidden bg-white p-6 md:p-10 rounded-xl shadow-2xl transition duration-300">
-                <h2 class="text-3xl font-bold text-pink-500 mb-4">Sulan Gunawardena: Digital Pattern Making & Fit Portfolio (241085K)</h2>
-                <div class="portfolio-divider"></div>
-                <p class="text-secondary-gray mb-6">
-                    **Key Skills:** Accumark (Gerber), CLO3D, Digital Grading, Virtual Fit Analysis, Pattern Digitization and Reverse Engineering.
-                </p>
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Solo Project: 3D Virtual Fit for Activewear</h3>
-                <p class="text-sm text-secondary-gray">
-                    Created a customized 3D avatar based on anthropometric data and developed patterns for a complex activewear garment, testing and visualizing fit and tension mapping entirely in a 3D environment before physical sampling.
-                </p>
-                <a href="https://www.linkedin.com/in/sulan-gunawardena-485584389/" target="_blank" class="block mt-4 text-center text-sm text-primary-blue hover:text-accent-orange font-medium transition duration-150">Connect on LinkedIn »</a>
-            </div>
-
         </section>
 
-        <!-- 5. CONTACT SECTION -->
-        <section id="contact" class="content-section hidden">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-blue mb-6">Contact & Collaboration</h1>
-            <div class="portfolio-divider"></div>
-            <p class="text-lg text-secondary-gray mb-10">
-                We are always open to connecting with industry professionals, researchers, and potential employers.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Contact Card 1: Email -->
-                <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Email Us</h3>
-                    <p class="text-gray-700 text-sm">Send us an inquiry or project proposal.</p>
-                    <a href="mailto:uom.ta.group@example.com" class="text-accent-orange font-medium break-words block mt-2 hover:underline">uom.ta.group@example.com</a>
-                </div>
-                
-                <!-- Contact Card 2: Location -->
-                <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-accent-orange hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold text-accent-orange mb-2">Our Location</h3>
-                    <p class="text-gray-700 text-sm">Department of Textile & Apparel Engineering</p>
-                    <p class="text-gray-700 font-medium break-words block mt-2">University of Moratuwa</p>
-                </div>
-                
-                <!-- Contact Card 3: LinkedIn (Group Link) -->
-                <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-primary-blue hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">LinkedIn (Group)</h3>
-                    <p class="text-gray-700 text-sm">Connect with us professionally and view individual profiles.</p>
-                    <a href="https://www.linkedin.com/in/uom-ta-group" target="_blank" class="text-accent-orange font-medium break-words block mt-2 hover:underline">linkedin.com/in/uom-ta-group</a>
-                </div>
-                
-                <!-- Contact Card 4: GitHub -->
-                <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-accent-orange hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold text-accent-orange mb-2">GitHub</h3>
-                    <p class="text-gray-700 text-sm">Review our open-source code and technical documentation.</p>
-                    <a href="https://github.com/uom-ta-group" target="_blank" class="text-primary-blue font-medium break-words block mt-2 hover:underline">github.com/uom-ta-group</a>
-                </div>
-            </div>
-        </section>
-        
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
-            &copy; 2025 University of Moratuwa T&A Group. | Created with Tailwind CSS.
+    <footer class="py-10 border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2024 STUD Designs. All Rights Reserved. | Designed for Presence</p>
         </div>
     </footer>
 
     <script>
-        // JavaScript for handling the single-page tab navigation and mobile menu
+        // --- JAVASCRIPT FOR ROUTING AND INTERACTIVITY (All Animation Logic Removed) ---
 
-        // Updated array of member IDs
-        const memberIds = ['dh', 'tp', 'ub', 'sg'];
-        const sections = ['team', 'members', 'projects', 'portfolios', 'contact'];
+        const pageViews = document.querySelectorAll('.page-view');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentPage = 'home'; // Initial page state
+
+        // Size Guide Data (Inches)
+        const sizeData = {
+            men: {
+                S: { chest: "40", length: "28", sleeve: "10" },
+                M: { chest: "42", length: "29", sleeve: "10.5" },
+                L: { chest: "44", length: "30", sleeve: "11" },
+                XL: { chest: "46", length: "31", sleeve: "11.5" }
+            },
+            women: {
+                S: { bust: "34", length: "22", sleeve: "7" },
+                M: { bust: "36", length: "23", sleeve: "7.5" },
+                L: { bust: "38", length: "24", sleeve: "8" },
+                XL: { bust: "40", length: "25", sleeve: "8.5" }
+            }
+        };
+
+        // --- PAGE ROUTING FUNCTION (Instant) ---
+        function showPage(pageId) {
+            if (pageId === currentPage) return;
+            currentPage = pageId;
+
+            // 1. Update Navigation Links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // 2. Hide all pages and show only the requested one instantly
+            pageViews.forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(`${pageId}-view`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'instant' }); 
+            
+            // 3. Specific action for Size Guide page
+            if (pageId === 'size-guide') {
+                renderSizeTable('men');
+            }
+        }
         
-        // Function to toggle mobile menu visibility
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+        // --- Navigation Link Listeners ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = link.dataset.page || 'home'; 
+                showPage(targetPage);
+            });
+        });
+
+        // --- INTERACTIVE COLOR SWATCH LOGIC (Women View - Instant Swap) ---
+        const womenColorSwatchesContainer = document.getElementById('women-color-swatches-container');
+        const womenSelectedColorName = document.getElementById('women-selected-color-name');
+        const womenImgs = [
+            { id: 'women-img-1', baseSrc: 'https://placehold.co/800x1000', alt: 'fit of the Signature Crew' },
+            { id: 'women-img-2', baseSrc: 'https://placehold.co/800x800', alt: 'texture of the Signature Crew fabric' }
+        ];
+
+        if (womenColorSwatchesContainer) {
+            womenColorSwatchesContainer.addEventListener('click', (e) => {
+                const swatch = e.target.closest('.color-swatch');
+                if (!swatch) return;
+
+                document.querySelectorAll('#women-color-swatches-container .color-swatch').forEach(s => s.classList.remove('selected'));
+                swatch.classList.add('selected');
+
+                const color = swatch.dataset.color;
+                const hex = swatch.dataset.hex;
+                const modifier = swatch.dataset.imgModifier;
+                const textColor = (color === 'White') ? '000000' : 'F5F5F5'; 
+
+                womenSelectedColorName.textContent = color;
+
+                womenImgs.forEach(imgData => {
+                    const imgElement = document.getElementById(imgData.id);
+                    if (imgElement) {
+                        // Instant swap - animation classes removed
+                        imgElement.src = `${imgData.baseSrc}/${hex}/${textColor}?text=SIGNATURE+CREW+WOMEN+${modifier}+${imgData.alt.toUpperCase().replace(/ /g, '+')}`;
+                        imgElement.alt = `${color} ${imgData.alt}`;
+                    }
+                });
+            });
         }
 
-        // Attach event listener to the mobile menu button
-        document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+        // --- INTERACTIVE COLOR SWATCH LOGIC (Men View - Instant Swap) ---
+        const menColorSwatchesContainer = document.getElementById('men-color-swatches-container');
+        const menSelectedColorName = document.getElementById('men-selected-color-name');
+        const menImgs = [
+            { id: 'men-img-1', baseSrc: 'https://placehold.co/800x1000', alt: 'fit of the Essential Tee' },
+            { id: 'men-img-2', baseSrc: 'https://placehold.co/800x800', alt: 'detail of the Essential Tee' }
+        ];
 
-        // Function to switch main content sections
-        function showSection(activeSectionId) {
-            // Hide all content sections
-            sections.forEach(id => {
-                document.getElementById(id).classList.add('hidden');
+        if (menColorSwatchesContainer) {
+            menColorSwatchesContainer.addEventListener('click', (e) => {
+                const swatch = e.target.closest('.color-swatch');
+                if (!swatch) return;
+
+                document.querySelectorAll('#men-color-swatches-container .color-swatch').forEach(s => s.classList.remove('selected'));
+                swatch.classList.add('selected');
+
+                const color = swatch.dataset.color;
+                const hex = swatch.dataset.hex;
+                const modifier = swatch.dataset.imgModifier;
+                const textColor = (color === 'White') ? '000000' : 'F5F5F5'; 
+
+                menSelectedColorName.textContent = color;
+
+                menImgs.forEach(imgData => {
+                    const imgElement = document.getElementById(imgData.id);
+                    if (imgElement) {
+                        // Instant swap - animation classes removed
+                        imgElement.src = `${imgData.baseSrc}/${hex}/${textColor}?text=ESSENTIAL+TEE+MEN+${modifier}+${imgData.alt.toUpperCase().replace(/ /g, '+')}`;
+                        imgElement.alt = `${color} ${imgData.alt}`;
+                    }
+                });
             });
-            // Show the active section
-            document.getElementById(activeSectionId).classList.remove('hidden');
+        }
+        
+        // --- SIZE GUIDE LOGIC ---
+        const sizeTableContainer = document.getElementById('size-table-container');
+        const toggleMen = document.getElementById('toggle-men');
+        const toggleWomen = document.getElementById('toggle-women');
+        
+        // Utility function to get the primary button class
+        const getPrimaryButtonClasses = () => 'stud-btn-primary';
+        const getSecondaryButtonClasses = () => 'bg-gray-300 text-black hover:bg-gray-400';
 
-            // --- Desktop Tab Styling ---
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('tab-active', 'bg-accent-orange', 'text-dark-bg');
-                tab.classList.add('text-secondary-gray');
-            });
-
-            // Set active desktop tab style
-            const activeTab = document.getElementById(`${activeSectionId}-tab`);
-            if (activeTab) {
-                activeTab.classList.add('tab-active', 'bg-accent-orange', 'text-dark-bg');
-                activeTab.classList.remove('text-secondary-gray', 'hover:bg-primary-blue', 'hover:text-white');
-            }
+        function renderSizeTable(gender) {
+            const data = sizeData[gender];
             
-            // --- Mobile Tab Styling ---
-            document.querySelectorAll('.nav-tab-mobile').forEach(tab => {
-                tab.classList.remove('tab-active-mobile');
-            });
+            // Determine table headers based on gender
+            let headers = ['Size'];
+            if (gender === 'men') {
+                headers = [...headers, 'Chest (in)', 'Length (in)', 'Sleeve (in)'];
+            } else {
+                headers = [...headers, 'Bust (in)', 'Length (in)', 'Sleeve (in)'];
+            }
+
+            // Build HTML Table
+            let tableHTML = `
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            ${headers.map(h => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">${h}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+            `;
+
+            for (const size in data) {
+                const rowData = data[size];
+                tableHTML += `
+                    <tr class="hover:bg-teal-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-lg font-bold text-gray-900">${size}</td>
+                        ${Object.values(rowData).map(value => `<td class="px-6 py-4 whitespace-nowrap text-gray-700">${value}</td>`).join('')}
+                    </tr>
+                `;
+            }
+
+            tableHTML += `</tbody></table>`;
+            sizeTableContainer.innerHTML = tableHTML;
             
-            // Set active mobile tab style
-            const activeMobileTab = document.getElementById(`${activeSectionId}-tab-mobile`);
-            if (activeMobileTab) {
-                activeMobileTab.classList.add('tab-active-mobile');
-            }
-
-            // If navigating to portfolios, ensure the default one is shown (Dimalka Hettiarachchi)
-            if (activeSectionId === 'portfolios') {
-                showPortfolio('dh');
-            }
-
-            // Scroll to the top of the main content
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Function to switch portfolio content within the portfolio section
-        function showPortfolio(memberId) {
-            // Hide all portfolio content
-            document.querySelectorAll('.portfolio-content').forEach(content => {
-                content.classList.add('hidden');
-            });
-            // Show the active portfolio content
-            document.getElementById(`portfolio-${memberId}`).classList.remove('hidden');
-
-            // Update portfolio button styles
-            document.querySelectorAll('.portfolio-btn').forEach(btn => {
-                btn.classList.remove('bg-primary-blue', 'text-white', 'hover:bg-primary-blue/80');
-                btn.classList.add('bg-white', 'text-secondary-gray', 'hover:bg-gray-100');
-            });
-
-            // Set active portfolio button style
-            const activeBtn = document.getElementById(`btn-${memberId}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-primary-blue', 'text-white', 'hover:bg-primary-blue/80');
-                activeBtn.classList.remove('bg-white', 'text-secondary-gray', 'hover:bg-gray-100');
+            // Update toggle button styling (removes transition classes)
+            if (gender === 'men') {
+                toggleMen.className = `px-6 py-3 rounded-lg text-lg font-semibold ${getPrimaryButtonClasses()}`;
+                toggleWomen.className = `px-6 py-3 rounded-lg text-lg font-semibold ${getSecondaryButtonClasses()}`;
+            } else {
+                toggleWomen.className = `px-6 py-3 rounded-lg text-lg font-semibold ${getPrimaryButtonClasses()}`;
+                toggleMen.className = `px-6 py-3 rounded-lg text-lg font-semibold ${getSecondaryButtonClasses()}`;
             }
         }
 
-        // Function to handle clicking on a member profile card
-        function highlightPortfolio(memberId) {
-            showPortfolio(memberId);
-        }
+        toggleMen.addEventListener('click', () => renderSizeTable('men'));
+        toggleWomen.addEventListener('click', () => renderSizeTable('women'));
 
-        // Initial load: Show the 'team' section and set default portfolio view
-        document.addEventListener('DOMContentLoaded', () => {
-            showSection('team');
+        // --- Initial Load ---
+        window.addEventListener('load', () => {
+            showPage('home'); // Initialize to the home page
         });
 
     </script>
